@@ -1,0 +1,44 @@
+<!-- Partial: Product type 'typ1' -->
+<div class="row">
+
+  <!-- Image -->
+  <div class="col-xs-12" ng-controller="ImageController">
+    <!-- Admin -->
+    <div ng-if="isAuthorized('admin')">
+      <div ng-if="(+product.images.length > 0)" ng-file-drop="onFilePost($files, product, 'Product')" ng-file-drag-over-class="optiona-css-class">
+        <img class="img-responsive" ng-src="{{ product.images[product.images.length-1].filename }}" />
+      </div>
+      <div ng-if="(+product.images.length <= 0)" ng-file-drop="onFilePost($files, product, 'Product')" ng-file-drag-over-class="optional-css-class">
+        <img class="img-rounded img-responsive" ph-img="1200x400" ph-txt="Drop image here"/>
+      </div>
+    </div>
+
+    <!-- User -->
+    <div ng-if="!isAuthorized('admin')">
+      <div ng-if="(+product.images.length > 0)">
+        <img class="img-responsive" ng-src="{{ product.images[product.images.length-1].filename }}" />
+      </div>
+      <div ng-if="(+product.images.length <= 0)">
+        <img class="img-rounded img-responsive" ph-img="800x400" ph-txt="No image found"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Texts -->
+  <div class="row" ng-controller="TextController">
+
+    <div class="col-md-{{ 12 / product.texts.length }} edit-menu" ng-repeat="text in product.texts" ng-if="(+product.texts.length > 0 && isAuthorized('admin'))">
+      <!-- Admin text controls -->
+      <textarea msd-elastic class="vert" ng-model="text.description" btf-markdown="text.description"></textarea>
+      <span class="glyphicon glyphicon-remove-sign remove-button" ng-click="deleteText(text)" tooltip="Remove" tooltip-placement="bottom"></span>
+    </div>
+
+
+    <div class="col-md-{{ 12 / product.texts.length }}" ng-repeat="text in product.texts" ng-controller="TextController" ng-if="(+product.texts.length > 0 && !isAuthorized('admin'))">
+      <p ng-model="text.description" btf-markdown="text.description"></p>
+    </div>
+
+  </div>
+ 
+
+</div>

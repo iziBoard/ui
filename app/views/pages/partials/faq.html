@@ -1,0 +1,25 @@
+<!-- Partial: Page type 'faq' -->
+<div class="row" ng-controller="FaqController">
+
+  <div class="col-xs-12">
+    <h1 class="fix-heading pull-right"><small><span class="glyphicon glyphicon-plus-sign" ng-click="newQuestion(page, 'Page', 'Min fråga', 'Mitt svar')" tooltip="Add question" tooltip-placement="bottom"></span></small></h1>
+  </div>
+
+  <div class="col-xs-12">
+    <accordion close-others="true">
+      <accordion-group ng-repeat="question in page.questions" is-open="isopen">
+        <accordion-heading>
+          <input ng-if="isAuthorized('admin')" class="admin-input p" type="text" ng-model="question.title" placeholder="add your headline here" />
+          <span ng-if="!isAuthorized('admin')">{{ question.title }}</span>
+          <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+          
+          <span ng-if="isAuthorized('admin')" class="pull-right glyphicon glyphicon-ok-sign" style="margin-right: 1em" ng-click="saveQuestion(question)" tooltip="Save" tooltip-placement="bottom"></span> <span ng-if="isAuthorized('admin')" class="pull-right glyphicon glyphicon-remove-sign" style="margin-right: 1em;" ng-click="deleteQuestion(question)" tooltip="Remove" tooltip-placement="bottom"></span>
+
+        </accordion-heading>
+          <textarea msd-elastic class="vert" ng-model="question.body" btf-markdown="question.body" ng-if="isAuthorized('admin')"></textarea>
+          <span ng-if="!isAuthorized('admin')">{{ question.body }}</span>
+      </accordion-group>
+    </accordion>
+  </div>
+
+</div>

@@ -1,0 +1,14 @@
+<!-- login.html -->
+<h1>Login Page</h1>
+
+<p>{{ message }}</p>
+
+<h1>user: {{ currentUser }}</h1>
+
+<form ng-submit="login(user)">
+  Email: <input type="email" ng-model="user.email" /><br />
+  Password: <input type="password" ng-model="user.password" /><br />
+  <button type="submit">Login</button>
+</form>
+
+<div ui-view></div>

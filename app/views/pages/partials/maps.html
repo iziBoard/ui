@@ -1,0 +1,44 @@
+<!-- Partial: Page type 'maps' -->
+<div class="row" ng-controller="MapsController">
+
+  <div class="col-xs-12">
+    <google-map 
+      ng-file-drop="onFilePost($files, page, 'Page')" ng-file-drag-over-class="optiona-css-class"
+      center="map.center" 
+      zoom="map.zoom" 
+      draggable="true"                                    
+      mark-click="false"
+      events="map.events">
+      <marker ng-repeat="marker in page.markers | filter:storesearch"
+        coords="marker">
+        <!--
+        <marker-label
+            content="marker.title"
+            anchor="0 0">
+        </marker-label>
+      -->
+      </marker>
+    </google-map>
+  </div>
+
+  <div class="col-xs-12">
+    <input class="form-control" type="text" ng-model="storesearch" placeholder="sök efter din butik här" />
+  </div>
+
+  <div class="col-xs-12">
+    <table class="table">
+      
+      <thead>
+        <tr> <th>Title</th> <th>Street</th> <th>City</th> </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="marker in page.markers | filter:storesearch">
+          <td>{{ marker.title }}</td>
+          <td>{{ marker.street }}</td>
+          <td>{{ marker.zip }}{{ marker.city }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

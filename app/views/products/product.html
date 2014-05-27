@@ -1,0 +1,58 @@
+<!-- public.html -->
+
+<!-- Change page type -->
+<div class="btn-group" dropdown is-open="status.isopen" ng-if="isAuthorized('admin')">
+  <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
+    {{ product.type }} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li ng-repeat="type in productTypes">
+      <a href ng-click="setProductType(type)">{{ type }}</a>
+    </li>
+  </ul>
+</div>
+
+<!-- Change page permissions -->
+<div class="btn-group" dropdown is-open="status.isopen" ng-if="isAuthorized('admin')">
+  <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
+    {{ product.permissions }} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li ng-repeat="permission in pagePermissions">
+      <a href ng-click="setPagePermissions(permission)">{{ permission }}</a>
+    </li>
+  </ul>
+</div>
+
+<!-- save page -->
+<button type="button" class="btn btn-primary" ng-click="saveProduct(product)" ng-if="isAuthorized('admin')">Save</button>
+
+<!-- Common to all product -->
+<div class="row">
+  <div class="col-xs-12">
+    <!-- Heading -->
+    <input ng-if="isAuthorized('admin')" class="admin-input h1" type="text" ng-model="product.heading" placeholder="Add heading here" />
+    <h1 ng-if="!isAuthorized('admin')">{{ product.heading }}</h1>
+  </div>
+
+  <div class="col-xs-12">
+    <!-- Title -->
+    <input ng-if="isAuthorized('admin')" class="admin-input h2" type="text" ng-model="product.title" placeholder="Add your title here" />
+    <h2 ng-if="!isAuthorized('admin')">{{ product.title }}</h2>
+  </div>
+
+  <div class="col-xs-12" ng-if="isAuthorized('admin')" ng-controller="TextController">
+    <h1 class="fix-heading"><small><span class="glyphicon glyphicon-plus-sign" ng-click="newTextable(product, 'Product', 'Lipsum...')" tooltip="Add text" tooltip-placement="bottom"></span></small></h1>
+  </div>
+
+</div>
+
+<!-- page templates -->
+<div class="row" ng-switch on="product.type">
+  <div ng-switch-when="typ1">
+    <div class="col-xs-12" ng-include="'views/products/partials/typ1.html'"></div>
+  </div>
+  <div ng-switch-when="typ2">
+    <div class="col-xs-12" ng-include="'views/products/partials/typ2.html'"></div>
+  </div>
+</div>

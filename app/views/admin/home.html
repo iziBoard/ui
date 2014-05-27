@@ -1,0 +1,20 @@
+<!-- home.html -->
+<h1>Admin Page</h1>
+
+<p>{{ message }}</p>
+
+<div ui-view></div>
+
+<table class="table">
+  <thead>
+    <tr> <th>id</th> <th>Firstname</th> <th>Lastname</th> <th>email</th> </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.last_name }}</td>
+      <td>{{ user.email }}</td>
+    </tr>
+  </tbody>
+</table>

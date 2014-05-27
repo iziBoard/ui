@@ -1,0 +1,46 @@
+<!--
+  iziBoard
+  Copyright (C) 2014  Andreas Göransson
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ -->
+<li class="dropdown page-type-selection" ng-if="isAuthorized('admin')">
+  <a class="dropdown-toggle">
+    {{ footer.type }}
+  </a>
+  <ul class="dropdown-menu">
+    <li ng-repeat="type in footerTypes">
+      <a ng-click="setFooterType(footer, type)">{{ type }}</a>
+    </li>
+  </ul>
+</li>
+
+<div class="col-xs-12" ng-if="isAuthorized('admin')">
+  <input class="h3" type="text" style="width: 60%;" ng-model="footer.title" placeholder="add your title here" />
+  <h1 class="fix-heading"><small><span class="glyphicon glyphicon-ok-sign" ng-click="saveFooter(footer)" tooltip="Save" tooltip-placement="bottom"></span> <span class="glyphicon glyphicon-plus-sign" ng-click="openSocialModal(footer)" tooltip="Add url" tooltip-placement="bottom"></span> <span class="glyphicon glyphicon-remove-sign" ng-click="deleteFooter(footer)" tooltip="Remove" tooltip-placement="bottom"></span></small></h1>
+</div>
+<div class="col-xs-12" ng-if="!isAuthorized('admin')">
+  <h3 ng-model="footer.title">{{ footer.title }}</h3>
+</div>
+
+<div class="col-xs-12">
+  <div class="row">
+    <div class="col-xs-{{ 12 / footer.urls.length }} footer-url" ng-repeat="url in footer.urls">
+      <a class="social-link" href="{{ ((url.url.indexOf('http') == -1) ? 'http://' : '') }}{{ url.url }}"><span class="symbol">circle{{ getUrlName(url.url) }}</span></a>
+      <span ng-if="isAuthorized('admin')" class="glyphicon glyphicon-remove-sign pull-right" ng-click="deleteUrl(footer, url)" tooltip="Remove" tooltip-placement="bottom"></span>
+      <span ng-if="isAuthorized('admin')" class="glyphicon glyphicon-question-sign pull-left" ng-click="openSocialModal(footer, url)" tooltip="Edit" tooltip-placement="bottom"></span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<!--
+  iziBoard
+  Copyright (C) 2014  Andreas Göransson
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ -->
+<li class="dropdown page-type-selection" ng-if="isAuthorized('admin')">
+  <a class="dropdown-toggle">
+    {{ footer.type }}
+  </a>
+  <ul class="dropdown-menu">
+    <li ng-repeat="type in footerTypes">
+      <a ng-click="setFooterType(footer, type)">{{ type }}</a>
+    </li>
+  </ul>
+</li>
+
+<div class="col-xs-12" ng-if="isAuthorized('admin')">
+  <input class="h3" type="text" style="width: 60%;" ng-model="footer.title" placeholder="add your title here" />
+  <h1 class="fix-heading"><small><span class="glyphicon glyphicon-ok-sign" ng-click="saveFooter(footer)" tooltip="Save" tooltip-placement="bottom"></span> <span class="glyphicon glyphicon-remove-sign" ng-click="deleteFooter(footer)" tooltip="Remove" tooltip-placement="bottom"></span></small></h1>
+</div>
+<div class="col-xs-12" ng-if="!isAuthorized('admin')">
+  <h3 ng-model="footer.title">{{ footer.title }}</h3>
+</div>
+
+<div class="col-xs-12">
+  <div class="form-group">
+    <input type="text" class="form-control" name="name" placeholder="Skriv ditt namn" ng-model="contactform.name">
+  </div>
+
+  <div class="form-group">
+    <input type="email" class="form-control" name="email" placeholder="Skriv din email" ng-model="contactform.email">
+  </div>
+
+  <div class="form-group">
+    <textarea class="form-control" name="body" rows="3" placeholder="Meddelande..." ng-model="contactform.body"></textarea>
+  </div>
+  
+  <button type="button" class="btn btn-primary btn-sm" ng-click="sendContactFormEmail(contactform)">Skicka</button>
+
+</div>

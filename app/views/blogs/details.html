@@ -1,0 +1,36 @@
+<div class="row blog-container">
+
+  <div ng-model="post" class="blogpost-item">
+
+    <div class="col-xs-12">
+      <!-- Heading -->
+      <input ng-if="isAuthorized('admin')" class="admin-input h1" type="text" ng-model="post.title" placeholder="Add heading here" />
+      <h1 ng-if="!isAuthorized('admin')">{{ post.title }}</h1>
+    </div>
+    
+    <h4>{{ page.currentBlogpost.title }} <small><span class="glyphicon glyphicon-picture fix-sign" ng-click="addImage(post)" tooltip="Add image" tooltip-placement="bottom"></span> <span class="glyphicon glyphicon-comment fix-sign" ng-click="addText(post)" tooltip="Add text" tooltip-placement="bottom"></span> | <span class="glyphicon glyphicon-minus-sign" ng-click="deleteBlogpost(post)" tooltip="Delete" tooltip-placement="bottom"></span><span class="glyphicon glyphicon-ok-sign" ng-click="savePost(post)" tooltip="Save" tooltip-placement="bottom"></span></small></h4>
+      <p>{{ page.currentBlogpost.created_at }}</p>
+
+      <div ng-repeat="blogitem in getBlogitems(post)">
+
+        <div ng-if="blogitem.textable_id">
+          <textarea msd-elastic class="vert" ng-model="blogitem.description" btf-markdown="blogitem.description"></textarea>
+          <span class="glyphicon glyphicon-remove-sign remove-button" ng-click="deleteText(blogitem)" tooltip="Remove" tooltip-placement="bottom"></span>
+        </div>
+
+        <div ng-if="blogitem.imageable_id" ng-controller="ImageController">
+          
+          <div ng-if="blogitem.filename" ng-file-drop="onFilePost($files, '', '', blogitem)" ng-file-drag-over-class="optional-css-class">
+            <img class="img-responsive" ng-model="blogitem" ng-src="{{ blogitem.filename }}" />
+          </div>
+          
+          <div ng-if="!blogitem.filename" ng-file-drop="onFilePost($files, '', '', blogitem)" ng-file-drag-over-class="optional-css-class">
+            <img class="img-rounded img-responsive" ph-img="800x400" ph-txt="Drop image here"/>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+</div>

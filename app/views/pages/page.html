@@ -1,0 +1,67 @@
+<!-- public.html -->
+
+<!-- Change page type -->
+<div class="btn-group" dropdown is-open="status.isopen" ng-if="isAuthorized('admin')">
+  <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
+    {{ page.type }} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li ng-repeat="type in pageTypes">
+      <a href ng-click="setPageType(type)">{{ type }}</a>
+    </li>
+  </ul>
+</div>
+
+<!-- Change page permissions -->
+<div class="btn-group" dropdown is-open="status.isopen" ng-if="isAuthorized('admin')">
+  <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
+    {{ page.permissions }} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li ng-repeat="permission in pagePermissions">
+      <a href ng-click="setPagePermissions(permission)">{{ permission }}</a>
+    </li>
+  </ul>
+</div>
+
+<!-- save page -->
+<button type="button" class="btn btn-primary" ng-click="savePage(page)" ng-if="isAuthorized('admin')">Save</button>
+
+<!-- Common to all pages -->
+<div class="row">
+  <div class="col-xs-12">
+    <!-- Heading -->
+    <input ng-if="isAuthorized('admin')" class="admin-input h1" type="text" ng-model="page.heading" placeholder="Add heading here" />
+    <h1 ng-if="!isAuthorized('admin')">{{ page.heading }}</h1>
+  </div>
+
+  <div class="col-xs-12">
+    <!-- Title -->
+    <input ng-if="isAuthorized('admin')" class="admin-input h2" type="text" ng-model="page.title" placeholder="Add your title here" />
+    <h2 ng-if="!isAuthorized('admin')">{{ page.title }}</h2>
+  </div>
+</div>
+
+
+
+<!-- page templates -->
+<div class="row" ng-switch on="page.type">
+  <div ng-switch-when="carousel">
+    <div class="col-xs-12" ng-include="'views/pages/partials/carousel.html'"></div>
+  </div>
+  <div ng-switch-when="faq">
+    <div class="col-xs-12" ng-include="'views/pages/partials/faq.html'"></div>
+  </div>
+  <div ng-switch-when="front">
+    <div class="col-xs-12" ng-include="'views/pages/partials/front.html'"></div>
+  </div>
+  <div ng-switch-when="maps">
+    <div class="col-xs-12" ng-include="'views/pages/partials/maps.html'"></div>
+  </div>
+  <div ng-switch-when="news">
+    <div class="col-xs-12" ng-include="'views/pages/partials/news.html'"></div>
+  </div>
+  <div ng-switch-when="text">
+    <div class="col-xs-12" ng-include="'views/pages/partials/text.html'"></div>
+  </div>
+</div>

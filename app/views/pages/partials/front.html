@@ -1,0 +1,53 @@
+<!-- Partial: Page type 'front' -->
+<div class="row">
+
+  <!-- Image -->
+  <div class="col-md-8 col-xs-12" ng-controller="ImageController">
+    <!-- Admin -->
+    <div ng-if="isAuthorized('admin')">
+      <div ng-if="(+page.images.length > 0)" ng-file-drop="onFilePost($files, page, 'Page')" ng-file-drag-over-class="optiona-css-class">
+        <img class="img-responsive" ng-src="{{ page.images[page.images.length-1].filename }}" />
+      </div>
+      <div ng-if="(+page.images.length <= 0)" ng-file-drop="onFilePost($files, page, 'Page')" ng-file-drag-over-class="optional-css-class">
+        <img class="img-rounded img-responsive" ph-img="800x400" ph-txt="Drop image here"/>
+      </div>
+    </div>
+
+    <!-- User -->
+    <div ng-if="!isAuthorized('admin')">
+      <div ng-if="(+page.images.length > 0)">
+        <img class="img-responsive" ng-src="{{ page.images[page.images.length-1].filename }}" />
+      </div>
+      <div ng-if="(+page.images.length <= 0)">
+        <img class="img-rounded img-responsive" ph-img="800x400" ph-txt="No image found"/>
+      </div>
+    </div>
+  </div>
+  
+  <!-- News -->
+  <div class="col-md-4 visible-md visible-lg news-container" ng-controller="NewsController">
+    <!-- Admin news controls -->
+    <h2>De senaste nyheterna <small ng-if="isAuthorized('admin')"><span class="glyphicon glyphicon-plus-sign" ng-click="openNewsModal()" tooltip="Add news item" tooltip-placement="bottom"></span></small></h2>
+    <div ng-repeat="n in news | limitTo: quantity | orderBy:orderProp:orderType" class="news-item" ng-include="'views/pages/partials/newsitem-small.html'">
+      <!-- Dynamic section template used -->
+    </div>
+  </div>
+
+  <!-- Texts -->
+  <div class="row" ng-controller="TextController">
+
+    <div class="col-md-{{ 12 / page.texts.length }} edit-menu" ng-repeat="text in page.texts" ng-if="(+page.texts.length > 0 && isAuthorized('admin'))">
+      <!-- Admin text controls -->
+      <textarea msd-elastic class="vert" ng-model="text.description" btf-markdown="text.description"></textarea>
+      <span class="glyphicon glyphicon-remove-sign remove-button" ng-click="deleteText(text)" tooltip="Remove" tooltip-placement="bottom"></span>
+    </div>
+
+
+    <div class="col-md-{{ 12 / page.texts.length }}" ng-repeat="text in page.texts" ng-controller="TextController" ng-if="(+page.texts.length > 0 && !isAuthorized('admin'))">
+      <p ng-model="text.description" btf-markdown="text.description"></p>
+    </div>
+
+  </div>
+ 
+
+</div>

@@ -1,0 +1,58 @@
+<!-- Partial: Page type 'carousel' -->
+<div class="row">
+
+  <!-- Image -->
+  <div class="col-md-8 col-xs-12" ng-controller="ImageController">
+    <!-- Admin -->
+    <div ng-if="isAuthorized('admin')">
+      <div ng-if="(+page.images.length > 0)" ng-file-drop="onFilePost($files, page, 'Page')" ng-file-drag-over-class="optional-css-class">
+        <carousel interval="myInterval">
+          <slide ng-repeat="image in page.images" active="slide.active">
+            <img ng-src="{{ image.filename }}" style="margin:auto;"/>
+            <div class="carousel-caption">
+              <h4>{{ image.originalname }}</h4>
+              <h4>{{ image.originalname }}</h4>
+            </div>
+          </slide>
+        </carousel>
+      </div>
+      <div ng-if="(+page.images.length <= 0)" ng-file-drop="onFilePost($files, page, 'Page')" ng-file-drag-over-class="optional-css-class">
+        <img class="img-rounded img-responsive" ph-img="800x400" ph-txt="Drop image here"/>
+      </div>
+    </div>
+
+    <!-- User -->
+    <div ng-if="!isAuthorized('admin')">
+      <div ng-if="(+page.images.length > 0)">
+        <carousel interval="myInterval">
+          <slide ng-repeat="image in page.images" active="slide.active">
+            <img ng-src="{{ image.filename }}" style="margin:auto;"/>
+            <div class="carousel-caption">
+              <h4>{{ image.originalname }}</h4>
+              <h4>{{ image.originalname }}</h4>
+            </div>
+          </slide>
+        </carousel>
+      </div>
+      <div ng-if="(+page.images.length <= 0)">
+        <img class="img-rounded img-responsive" ph-img="800x400" ph-txt="No image found"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Texts -->
+  <div class="row" ng-controller="TextController">
+    <div class="col-xs-12" ng-if="isAuthorized('admin')">
+      <h1 class="fix-heading"><small><span class="glyphicon glyphicon-plus-sign" ng-click="newTextable(page, 'Page', 'Lipsum...')" tooltip="Add text" tooltip-placement="bottom"></span></small></h1>
+    </div>
+    <div class="col-md-{{ 12 / page.texts.length }} edit-menu" ng-repeat="text in page.texts" ng-if="(+page.texts.length > 0)">
+      <textarea ng-if="isAuthorized('admin')" msd-elastic class="vert" ng-model="text.description" btf-markdown="text.description"></textarea>
+      <span ng-if="isAuthorized('admin')" class="glyphicon glyphicon-remove-sign remove-button" ng-click="deleteText(text)" tooltip="Remove" tooltip-placement="bottom"></span>
+
+      <p ng-if="!isAuthorized('admin')" ng-model="text.description" btf-markdown="text.description"></p>
+    </div>
+
+  </div>
+ 
+
+</div>

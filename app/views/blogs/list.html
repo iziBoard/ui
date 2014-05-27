@@ -1,0 +1,5 @@
+<button type="button" class="btn btn-primary" ng-click="createPost()" ng-if="isAuthorized('admin')">New</button>
+
+<ul>
+  <li ng-repeat="post in posts"><a ui-sref="blog.post({ postId: post.id })">{{ post.title }}</a></li>
+</ul>

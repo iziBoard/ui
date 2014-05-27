@@ -1,0 +1,17 @@
+<!-- Partial: Page type 'text' -->
+<div class="row">
+
+  <!-- Texts -->
+  <div class="row" ng-controller="TextController">
+    <div class="col-xs-12" ng-if="isAuthorized('admin')">
+      <h1 class="fix-heading"><small><span class="glyphicon glyphicon-plus-sign" ng-click="newTextable(page, 'Page', 'Lipsum...')" tooltip="Add text" tooltip-placement="bottom"></span></small></h1>
+    </div>
+    <div class="col-md-{{ 12 / page.texts.length }} edit-menu" ng-repeat="text in page.texts" ng-if="(+page.texts.length > 0)">
+      <textarea ng-if="isAuthorized('admin')" msd-elastic class="vert" ng-model="text.description" btf-markdown="text.description"></textarea>
+      <span ng-if="isAuthorized('admin')" class="glyphicon glyphicon-remove-sign remove-button" ng-click="deleteText(text)" tooltip="Remove" tooltip-placement="bottom"></span>
+
+      <p ng-if="!isAuthorized('admin')" ng-model="text.description" btf-markdown="text.description"></p>
+    </div>
+  </div>
+
+</div>

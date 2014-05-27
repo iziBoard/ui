@@ -1,0 +1,13 @@
+<!-- register.html -->
+<h1>Register Page</h1>
+<p>{{ message }}</p>
+
+<form ng-submit="create(user)">
+  First name: <input type="text" ng-model="user.first_name" /><br />
+  Last name: <input type="text" ng-model="user.last_name" /><br />
+  E-mail: <input type="email" ng-model="user.email" /><br />
+  Password: <input type="password" ng-model="user.password" /><br />
+  <button type="submit">Continue</button><br><br>  
+</form>
+
+<div ui-view></div>
