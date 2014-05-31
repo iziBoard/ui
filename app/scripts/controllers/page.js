@@ -1,14 +1,13 @@
 'use strict';
 
 angular.module('iziUiApp')
-.controller('PageController', function ($scope, $log, PageFactory, $stateParams, $rootScope) {
+.controller('PageController', function ($scope, $log, PageFactory, $stateParams) {
 
   $scope.pageId = $stateParams.pageId;
 
   PageFactory.find($scope.pageId, function (result) {
     $log.info(result);
-    $scope.page = result.data;
-    $rootScope.selectedPage = result.data;
+    $scope.page = result.data[0];
   }, function (result) {
     $log.warn(result);
   });
@@ -23,10 +22,8 @@ angular.module('iziUiApp')
 
   $scope.savePage = function (page) {
     PageFactory.update(page, function (result){
-      $log.info('Page updated');
       $log.info(result);
     }, function (result){
-      $log.warn('Page not updated');
       $log.warn(result);
     });
   };

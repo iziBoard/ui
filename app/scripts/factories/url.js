@@ -1,24 +1,24 @@
 'use strict';
 
 angular.module('iziUiApp')
-.factory('FaqFactory', function($http, API_URL) {
+.factory('UrlFactory', function($http, API_URL) {
 
   return {
-    create: function(faq, successCallback, errorCallback) {
+    create: function(url, successCallback, errorCallback) {
       return $http({
         method: 'post',
-        url: API_URL + 'questions',
-        data: faq
+        url: API_URL + 'urls',
+        data: url
       })
       .success(successCallback)
       .error(errorCallback);
     },
 
-    update: function(faq, successCallback, errorCallback) {
+    update: function(url, successCallback, errorCallback) {
       return $http({
         method: 'put',
-        url: API_URL + 'questions/' + faq.id,
-        data: faq
+        url: API_URL + 'urls/' + url.id,
+        data: url
       })
       .success(successCallback)
       .error(errorCallback);
@@ -27,25 +27,25 @@ angular.module('iziUiApp')
     list: function(successCallback, errorCallback) {
       return $http({
         method: 'get',
-        url: API_URL + 'questions'
+        url: API_URL + 'urls'
       })
       .success(successCallback)
       .error(errorCallback);
     },
 
-    find: function(id, successCallback, errorCallback) {
+    find: function(url, successCallback, errorCallback) {
       return $http({
         method: 'get',
-        url: API_URL + 'questions/' + id
+        url: API_URL + 'urls/' + url.id
       })
       .success(successCallback)
       .error(errorCallback);
     },
 
-    delete: function(id, successCallback, errorCallback) {
+    delete: function(url, successCallback, errorCallback) {
       return $http({
         method: 'delete',
-        url: API_URL + 'questions/' + id
+        url: API_URL + 'url/' + url.id
       })
       .success(successCallback)
       .error(errorCallback);

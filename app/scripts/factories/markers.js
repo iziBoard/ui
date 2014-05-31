@@ -17,7 +17,7 @@ angular.module('iziUiApp')
     update: function(marker, successCallback, errorCallback) {
       return $http({
         method: 'put',
-        url: API_URL + 'markers',
+        url: API_URL + 'markers/' + marker.id,
         data: marker
       })
       .success(successCallback)

@@ -53,7 +53,7 @@ angular.module('iziUiApp')
   $scope.getBlogitems = function (post) {
     var items = [];
 
-    if( typeof post != 'undefined' ){
+    if( typeof post !== 'undefined' ){
       items = items.concat(post.images);
       items = items.concat(post.texts);
     }
@@ -64,11 +64,13 @@ angular.module('iziUiApp')
   };
 
   function compare(a,b) {
-    if (a.created_at < b.created_at)
-       return -1;
-    if (a.created_at > b.created_at)
+    if (a.created_at < b.created_at){
+      return -1;
+    }
+    if (a.created_at > b.created_at){
       return 1;
+    }
     return 0;
-  };
+  }
 
 });

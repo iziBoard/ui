@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('iziUiApp')
-.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
+.factory('AuthInterceptor', function ($rootScope, $localStorage, $q, AUTH_EVENTS, $log) {
   return {
     'request': function (config) {
       //$rootScope.pendingRequests++;
-      config.headers['Auth-Token'] = ($rootScope.currentUser ? $rootScope.currentUser.token : '');
+      config.headers['X-Auth-Token'] = ($localStorage.user ? $localStorage.user.token : '');
       
       //$httpProvider.defaults.useXDomain = true;
       //delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -43,6 +43,11 @@ angular.module('iziUiApp')
         $rootScope.$broadcast(AUTH_EVENTS.sessionTimeout, response);
         console.log('auth failed 419 || 440');
       }
+
+      if( response.data.result === false ){
+        $rootScope.addAlert('danger', response.data.data);
+      }
+
       return $q.reject(response);
     }
   };

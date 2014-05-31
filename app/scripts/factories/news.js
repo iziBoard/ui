@@ -17,7 +17,7 @@ angular.module('iziUiApp')
     update: function(news, successCallback, errorCallback) {
       return $http({
         method: 'put',
-        url: API_URL + 'news',
+        url: API_URL + 'news/' + news.id,
         data: news
       })
       .success(successCallback)

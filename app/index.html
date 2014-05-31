@@ -27,6 +27,8 @@
     <!-- Nav menu -->
     <nav class="navbar navbar-default" role="navigation" ng-include="'views/nav.html'"></nav>
 
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    
     <div class="container">
       <!-- Add your site or application content here -->
       <div class="col-xs-12" ui-view></div>
@@ -104,7 +106,6 @@
     <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
     <script src="bower_components/angular-ui-map/ui-map.js"></script>
     <!-- endbower -->
-    <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
@@ -147,13 +148,18 @@
         <script src="scripts/factories/category.js"></script>
         <script src="scripts/factories/product.js"></script>
         <script src="scripts/factories/blog.js"></script>
+        <script src="scripts/factories/footer.js"></script>
+        <script src="scripts/factories/url.js"></script>
 
         <!-- Services -->
         <script src="scripts/services/session.js"></script>
         <script src="scripts/services/geocode.js"></script>
 
         <!-- Filters -->
-        <script src="scripts/filters.js"></script>
+        <script src="scripts/filters/filters.js"></script>
+
+
+    <!-- endbuild -->
 </body>
 </html>
 

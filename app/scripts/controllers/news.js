@@ -89,7 +89,7 @@ angular.module('iziUiApp')
 
   $scope.deleteNews = function (news) {
     NewsFactory.delete(news.id, function (result) {
-      var index = $scope.news.indexOf(news);
+      var index = $scope.news.indexOf(result.data);
       $scope.news.splice(index, 1);
     }, function (result) {
       $log.warn(result);

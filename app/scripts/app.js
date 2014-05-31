@@ -10,11 +10,10 @@ angular
     'ui.bootstrap',
     'angularFileUpload',
     'placeholders',
-    'google-maps',
-    'iziFilters'
+    'google-maps'
   ])
 
-  .constant('API_URL', 'http://api.izi.local/')
+  .constant('API_URL', 'http://api.izi.local/v1/')
 
   .constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
@@ -138,22 +137,6 @@ angular
       });
   })
 
-/*
-Not needed it seems
-  .config(['$httpProvider', function ($httpProvider) {
-      $httpProvider.defaults.useXDomain = true;
-      delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    }
-  ])
-*/
-/*
-Not needed it seems
-  .config(['$sceDelegateProvider', function($sceDelegateProvider) {
-      $sceDelegateProvider.resourceUrlWhitelist(['self', /^https?:\/\/(api\.)?joblan.local/]);
-    }
-  ])
-*/
-
   .config(function ($httpProvider) {
     $httpProvider.interceptors.push(['$injector',
       function ($injector) {
@@ -179,6 +162,19 @@ Not needed it seems
 
       $rootScope.geocoder = Geocoder;
       Session.restore();
+
+      // -- START ALERTS --
+      // Possible types: 'success', 'info', 'warning', 'danger'
+      $rootScope.alerts = [];
+      $rootScope.addAlert = function (type, messages) {
+        angular.forEach(messages, function (message) {
+          $rootScope.alerts.push({ type: type, msg: message });
+        });
+      };
+      $rootScope.closeAlert = function (index) {
+        $rootScope.alerts.splice(index);
+      };
+      // -- END ALERTS --
 
       $rootScope.$on('$stateChangeStart', function (event, next) {
         var permissions = next.data.authorizedRoles;
@@ -207,7 +203,6 @@ Not needed it seems
         }else{
           $state.go('admin.home');
         }
-
         $log.log(data);
       });
 
