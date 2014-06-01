@@ -11,7 +11,7 @@
     <h4>{{ page.currentBlogpost.title }} <small><span class="glyphicon glyphicon-picture fix-sign" ng-click="addImage(post)" tooltip="Add image" tooltip-placement="bottom"></span> <span class="glyphicon glyphicon-comment fix-sign" ng-click="addText(post)" tooltip="Add text" tooltip-placement="bottom"></span> | <span class="glyphicon glyphicon-minus-sign" ng-click="deleteBlogpost(post)" tooltip="Delete" tooltip-placement="bottom"></span><span class="glyphicon glyphicon-ok-sign" ng-click="savePost(post)" tooltip="Save" tooltip-placement="bottom"></span></small></h4>
       <p>{{ page.currentBlogpost.created_at }}</p>
 
-      <div ng-repeat="blogitem in getBlogitems(post)">
+      <div ng-repeat="blogitem in getBlogitems(post) track by $index">
 
         <div ng-if="blogitem.textable_id">
           <textarea msd-elastic class="vert" ng-model="blogitem.description" btf-markdown="blogitem.description"></textarea>
