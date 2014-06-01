@@ -27,6 +27,8 @@ angular.module('iziUiApp')
       })
       .error( function (result) {
         $log.log(result);
+        Session.destroy();
+        $rootScope.$broadcast(AUTH_EVENTS.sessionTimeout);
       }).
       then( function (result) {
         $log.log(result);
